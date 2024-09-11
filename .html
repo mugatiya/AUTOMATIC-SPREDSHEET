@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Entry Form</title>
+</head>
+<body>
+    <h1>Enter Data</h1>
+    <form id="dataForm">
+        <label>Name:</label>
+        <input type="text" id="name" required><br><br>
+
+        <label>Email:</label>
+        <input type="email" id="email" required><br><br>
+
+        <label>Age:</label>
+        <input type="number" id="age" required><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        // JavaScript function to submit data
+        document.getElementById('dataForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const age = document.getElementById('age').value;
+
+            fetch('https://script.google.com/macros/s/AKfycbxE1unfEaC4UZ9Cqj_AsamFLvRqEhI9-UXK8BF3xkqeeppWrCHU2Y2ZLHuzYm13dtmOSA/exec', {
+                method: 'POST',
+                body: JSON.stringify({name: name, email: email, age: age}),
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Data successfully sent to Google Sheets!');
+            })
+            .catch(error => {
+                alert('Error sending data: ' + error.message);
+            });
+        });
+    </script>
+</body>
+</html>
